@@ -1,7 +1,4 @@
 ---
-# Unit test suite: for Domain and Application layer classes.
-# These should be plain PHP and not need the Yii2 module at all.
-#
 # RUN `build` COMMAND AFTER ADDING/REMOVING MODULES.
 actor: UnitTester
 modules:
