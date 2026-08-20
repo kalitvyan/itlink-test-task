@@ -23,7 +23,7 @@ migrate:
 	docker compose exec php php yii migrate
 
 test:
-	docker compose exec php vendor/bin/phpunit
+	docker compose exec php vendor/bin/codecept run
 
 stan:
 	docker compose exec php vendor/bin/phpstan analyse
