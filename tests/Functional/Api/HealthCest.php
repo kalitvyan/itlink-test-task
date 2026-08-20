@@ -6,7 +6,7 @@ namespace App\Tests\Functional\Api;
 
 use App\Tests\Support\FunctionalTester;
 
-final class HealthTest
+final class HealthCest
 {
     public function checksLiveness(FunctionalTester $I): void
     {
