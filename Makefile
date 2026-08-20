@@ -29,4 +29,7 @@ stan:
 	docker compose exec php vendor/bin/phpstan analyse
 
 lint:
-	docker compose exec php vendor/bin/php-cs-fixer check
+	docker compose exec php vendor/bin/phpcs
+
+fix:
+	docker compose exec php vendor/bin/phpcbf
