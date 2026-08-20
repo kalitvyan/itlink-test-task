@@ -7,6 +7,9 @@ down:
 build:
 	docker compose build
 
+build-no-cache:
+	docker compose build --no-cache
+
 restart:
 	docker compose restart
 
@@ -33,3 +36,6 @@ lint:
 
 fix:
 	docker compose exec php vendor/bin/phpcbf
+
+validation-key:
+	php -r "echo bin2hex(random_bytes(16)), PHP_EOL;"
