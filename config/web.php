@@ -1,5 +1,7 @@
 <?php
 
+use App\Interfaces\Http\ErrorHandler\ApiErrorHandler;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -24,7 +26,7 @@ $config = [
             'class' => \yii\caching\FileCache::class,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'class' => ApiErrorHandler::class,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
