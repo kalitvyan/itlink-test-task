@@ -1,7 +1,14 @@
 <?php
 
-$db = require __DIR__ . '/db.php';
-// test database! Important not to run tests on production or development databases
-$db['dsn'] = 'mysql:host=localhost;dbname=yii2basic_test';
-
-return $db;
+return [
+    'class' => \yii\db\Connection::class,
+    'dsn' => sprintf(
+        'pgsql:host=%s;port=%s;dbname=%s',
+        $_ENV['DB_HOST'],
+        $_ENV['DB_PORT'],
+        $_ENV['TEST_DB_NAME'] ?? $_ENV['DB_NAME'] . '_test',
+    ),
+    'username' => $_ENV['DB_USER'],
+    'password' => $_ENV['DB_PASSWORD'],
+    'charset' => 'utf8',
+];
