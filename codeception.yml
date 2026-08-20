@@ -1,5 +1,5 @@
 ---
-namespace: app\tests
+namespace: App\Tests
 bootstrap: _bootstrap.php
 support_namespace: Support
 paths:
@@ -7,7 +7,6 @@ paths:
   output: tests/Support/output
   data: tests/Support/data
   support: tests/Support
-  envs: tests/Support/envs
 actor_suffix: Tester
 settings:
   memory_limit: 1024M
@@ -22,9 +21,4 @@ extensions:
 coverage:
   enabled: true
   include:
-    - /commands/*
-    - /controllers/*
-    - /mail/*
-    - /models/*
-    - /views/*
-    - /widgets/*
+    - /src/*
