@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+
+.env
+
+runtime/*
+tests/_output/*
+
+docker-compose*.yml
+
+README.md
