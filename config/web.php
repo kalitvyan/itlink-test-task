@@ -59,6 +59,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'GET api/v1/health' => 'health/index',
+                'GET api/v1/health/ready' => 'health/ready',
             ],
         ],
 
