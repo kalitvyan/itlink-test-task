@@ -1,48 +1,34 @@
 <?php
 
+use App\Interfaces\Http\ErrorHandler\ApiErrorHandler;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/test_db.php';
 
-/**
- * Application configuration shared by all test types
- */
 return [
-    'id' => 'basic-tests',
+    'id' => 'api-tests',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => [
-        \app\tests\Support\MailerBootstrap::class,
-    ],
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-    ],
     'language' => 'en-US',
+    'controllerNamespace' => 'App\Interfaces\Http\Controllers',
     'components' => [
         'db' => $db,
-        'mailer' => [
-            'class' => \yii\symfonymailer\Mailer::class,
-            'messageClass' => \yii\symfonymailer\Message::class,
-            'useFileTransport' => true,
-            'viewPath' => '@app/mail',
+        'response' => [
+            'format' => \yii\web\Response::FORMAT_JSON,
         ],
-        'assetManager' => [
-            'basePath' => __DIR__ . '/../web/assets',
+        'errorHandler' => [
+            'class' => ApiErrorHandler::class,
         ],
         'urlManager' => [
+            'enablePrettyUrl' => true,
             'showScriptName' => true,
-        ],
-        'user' => [
-            'identityClass' => \app\models\User::class,
+            'rules' => [
+                'GET api/v1/health' => 'health/index',
+                'GET api/v1/health/ready' => 'health/ready',
+            ],
         ],
         'request' => [
             'cookieValidationKey' => 'test',
             'enableCsrfValidation' => false,
-            // but if you absolutely need it set cookie domain to localhost
-            /*
-            'csrfCookie' => [
-                'domain' => 'localhost',
-            ],
-            */
         ],
     ],
     'params' => $params,
