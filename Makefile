@@ -28,6 +28,12 @@ migrate:
 migrate-test:
 	docker compose exec -e DB_NAME=$${TEST_DB_NAME:-app_test} php php yii migrate
 
+migrate-down:
+	docker compose exec php php yii migrate/down $(n)
+
+migrate-create:
+	docker compose exec php php yii migrate/create $(name)
+
 test:
 	docker compose exec php vendor/bin/codecept run
 
@@ -41,4 +47,7 @@ fix:
 	docker compose exec php vendor/bin/phpcbf
 
 validation-key:
-	php -r "echo bin2hex(random_bytes(16)), PHP_EOL;"
+	@test -f .env || { echo ".env not found — run: cp .env.example .env"; exit 1; }
+	@key=$$(php -r "echo bin2hex(random_bytes(16));"); \
+	sed -i.bak "s/^COOKIE_VALIDATION_KEY=.*/COOKIE_VALIDATION_KEY=$$key/" .env && rm -f .env.bak; \
+	echo "COOKIE_VALIDATION_KEY updated in .env"
