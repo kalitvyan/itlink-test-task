@@ -6,15 +6,15 @@ namespace App\Application\DTO;
 
 use App\Domain\Model\CarOption;
 
-final class CreateCarCommand
+final readonly class CreateCarCommand
 {
     public function __construct(
-        public readonly string $title,
-        public readonly string $description,
-        public readonly string $price,
-        public readonly string $photoUrl,
-        public readonly string $contacts,
-        public readonly ?CarOption $options,
+        public string $title,
+        public string $description,
+        public string $price,
+        public string $photoUrl,
+        public string $contacts,
+        public ?CarOption $options,
     ) {
     }
 }
