@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Exception;
 
-use RuntimeException;
 use Throwable;
+use yii\base\UserException;
 
-abstract class ApiException extends RuntimeException implements ApiExceptionInterface
+abstract class ApiException extends UserException implements ApiExceptionInterface
 {
     public function __construct(
         string $message,
