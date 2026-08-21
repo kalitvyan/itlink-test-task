@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Http\Controllers;
 
+use App\Application\Exception\ValidationFailedException;
 use App\Interfaces\Http\Response\JsonApiResponse;
+use yii\base\Model;
 use yii\rest\Controller;
 
 abstract class ApiController extends Controller
@@ -25,5 +27,15 @@ abstract class ApiController extends Controller
     protected function success(mixed $data, array $meta = []): array
     {
         return JsonApiResponse::data($data, $meta);
+    }
+
+    /**
+     * @throws ValidationFailedException
+     */
+    protected function assertValid(Model $model): void
+    {
+        if (!$model->validate()) {
+            throw new ValidationFailedException($model->getErrors());
+        }
     }
 }
