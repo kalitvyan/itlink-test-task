@@ -6,17 +6,17 @@ namespace App\Domain\Model;
 
 use DateTimeImmutable;
 
-final class Car
+final readonly class Car
 {
     public function __construct(
-        public readonly ?int $id,
-        public readonly string $title,
-        public readonly string $description,
-        public readonly string $price,
-        public readonly string $photoUrl,
-        public readonly string $contacts,
-        public readonly DateTimeImmutable $createdAt,
-        public readonly ?CarOption $options = null,
+        public ?int $id,
+        public string $title,
+        public string $description,
+        public string $price,
+        public string $photoUrl,
+        public string $contacts,
+        public DateTimeImmutable $createdAt,
+        public ?CarOption $options = null,
     ) {
     }
 
