@@ -7,8 +7,8 @@ namespace App\Interfaces\Http\Controllers;
 use App\Application\Service\CreateCarService;
 use App\Application\Service\GetCarService;
 use App\Application\Service\ListCarsService;
-use App\Domain\Model\Car;
 use App\Interfaces\Http\Requests\CreateCarRequest;
+use App\Interfaces\Http\Response\CarResponse;
 use Yii;
 
 final class CarController extends ApiController
@@ -39,7 +39,7 @@ final class CarController extends ApiController
 
         Yii::$app->response->statusCode = 201;
 
-        return $this->success($this->present($car));
+        return $this->success(CarResponse::fromCar($car));
     }
 
     /**
@@ -47,7 +47,7 @@ final class CarController extends ApiController
      */
     public function actionView(int $id): array
     {
-        return $this->success($this->present($this->getCarService->handle($id)));
+        return $this->success(CarResponse::fromCar($this->getCarService->handle($id)));
     }
 
     /**
@@ -60,7 +60,7 @@ final class CarController extends ApiController
         $result = $this->listCarsService->handle($page, self::DEFAULT_PAGE_SIZE);
 
         return $this->success(
-            array_map($this->present(...), $result->items),
+            array_map(CarResponse::fromCar(...), $result->items),
             [
                 'page' => $result->page,
                 'pageSize' => $result->pageSize,
@@ -68,28 +68,5 @@ final class CarController extends ApiController
                 'totalPages' => (int) ceil($result->total / $result->pageSize),
             ],
         );
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function present(Car $car): array
-    {
-        return [
-            'id' => $car->id,
-            'title' => $car->title,
-            'description' => $car->description,
-            'price' => $car->price,
-            'photo_url' => $car->photoUrl,
-            'contacts' => $car->contacts,
-            'created_at' => $car->createdAt->format(DATE_ATOM),
-            'options' => $car->options === null ? null : [
-                'brand' => $car->options->brand,
-                'model' => $car->options->model,
-                'year' => $car->options->year,
-                'body' => $car->options->body,
-                'mileage' => $car->options->mileage,
-            ],
-        ];
     }
 }
