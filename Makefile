@@ -25,6 +25,9 @@ yii:
 migrate:
 	docker compose exec php php yii migrate
 
+migrate-test:
+	docker compose exec -e DB_NAME=$${TEST_DB_NAME:-app_test} php php yii migrate
+
 test:
 	docker compose exec php vendor/bin/codecept run
 
