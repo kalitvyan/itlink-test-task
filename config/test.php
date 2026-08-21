@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Repository\CarRepositoryInterface;
+use App\Infrastructure\Persistence\Postgres\CarRepository;
 use App\Interfaces\Http\ErrorHandler\ApiErrorHandler;
 
 $params = require __DIR__ . '/params.php';
@@ -10,6 +12,14 @@ return [
     'basePath' => dirname(__DIR__),
     'language' => 'en-US',
     'controllerNamespace' => 'App\Interfaces\Http\Controllers',
+    'container' => [
+        'singletons' => [
+            \yii\db\Connection::class => $db,
+        ],
+        'definitions' => [
+            CarRepositoryInterface::class => CarRepository::class,
+        ],
+    ],
     'components' => [
         'db' => $db,
         'response' => [
@@ -24,6 +34,9 @@ return [
             'rules' => [
                 'GET api/v1/health' => 'health/index',
                 'GET api/v1/health/ready' => 'health/ready',
+                'POST api/v1/car/create' => 'car/create',
+                'GET api/v1/car/list' => 'car/list',
+                'GET api/v1/car/<id:\d+>' => 'car/view',
             ],
         ],
         'request' => [
