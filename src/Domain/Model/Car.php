@@ -19,4 +19,18 @@ final class Car
         public readonly ?CarOption $options = null,
     ) {
     }
+
+    public function withId(int $id): self
+    {
+        return new self(
+            id: $id,
+            title: $this->title,
+            description: $this->description,
+            price: $this->price,
+            photoUrl: $this->photoUrl,
+            contacts: $this->contacts,
+            createdAt: $this->createdAt,
+            options: $this->options,
+        );
+    }
 }
