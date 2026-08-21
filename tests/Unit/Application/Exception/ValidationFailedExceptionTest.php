@@ -12,8 +12,8 @@ final class ValidationFailedExceptionTest extends Unit
     public function testItRendersOneErrorPerFieldMessageWithASourcePointer(): void
     {
         $exception = new ValidationFailedException([
-            'email' => ['Email cannot be blank.', 'Email is invalid.'],
-            'age' => ['Age must be an integer.'],
+            'price' => ['Price must be no less than 0.'],
+            'options/mileage' => ['Mileage cannot be blank.'],
         ]);
 
         $this->assertSame(422, $exception->getHttpStatus());
@@ -23,22 +23,15 @@ final class ValidationFailedExceptionTest extends Unit
                     'status' => '422',
                     'code' => 'validation_failed',
                     'title' => 'Unprocessable Entity',
-                    'detail' => 'Email cannot be blank.',
-                    'source' => ['pointer' => '/data/attributes/email'],
+                    'detail' => 'Price must be no less than 0.',
+                    'source' => ['pointer' => '/data/attributes/price'],
                 ],
                 [
                     'status' => '422',
                     'code' => 'validation_failed',
                     'title' => 'Unprocessable Entity',
-                    'detail' => 'Email is invalid.',
-                    'source' => ['pointer' => '/data/attributes/email'],
-                ],
-                [
-                    'status' => '422',
-                    'code' => 'validation_failed',
-                    'title' => 'Unprocessable Entity',
-                    'detail' => 'Age must be an integer.',
-                    'source' => ['pointer' => '/data/attributes/age'],
+                    'detail' => 'Mileage cannot be blank.',
+                    'source' => ['pointer' => '/data/attributes/options/mileage'],
                 ],
             ],
             $exception->getErrors(),
