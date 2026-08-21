@@ -41,4 +41,33 @@ final class CarDataMapper implements DataMapperInterface
             'created_at' => $entity->createdAt->format('Y-m-d H:i:s'),
         ];
     }
+
+    /**
+     * @param array<string, mixed> $row
+     */
+    public function optionsToEntity(array $row): CarOption
+    {
+        return new CarOption(
+            brand: (string) $row['brand'],
+            model: (string) $row['model'],
+            year: (int) $row['year'],
+            body: (string) $row['body'],
+            mileage: (int) $row['mileage'],
+        );
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function optionsToRow(int $carId, CarOption $options): array
+    {
+        return [
+            'car_id' => $carId,
+            'brand' => $options->brand,
+            'model' => $options->model,
+            'year' => $options->year,
+            'body' => $options->body,
+            'mileage' => $options->mileage,
+        ];
+    }
 }
