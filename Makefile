@@ -35,6 +35,7 @@ migrate-create:
 	docker compose exec php php yii migrate/create $(name)
 
 test:
+	docker compose exec php vendor/bin/codecept build
 	docker compose exec php vendor/bin/codecept run
 
 stan:
