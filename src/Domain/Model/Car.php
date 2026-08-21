@@ -33,4 +33,18 @@ final class Car
             options: $this->options,
         );
     }
+
+    public function withOptions(?CarOption $options): self
+    {
+        return new self(
+            id: $this->id,
+            title: $this->title,
+            description: $this->description,
+            price: $this->price,
+            photoUrl: $this->photoUrl,
+            contacts: $this->contacts,
+            createdAt: $this->createdAt,
+            options: $options,
+        );
+    }
 }
