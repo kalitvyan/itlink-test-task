@@ -58,11 +58,16 @@ curl http://127.0.0.1:8080/api/v1/health
 Единый формат ответа для всего API 
 успех: 
 ```json 
-{"data": ..., "meta"?: {...}}
+{
+  "data": {...},
+  "meta"?: {...}
+}
 ```
 ошибка:
 ```json
-{"errors": [{"status", "code", "title", "detail", "source"?}]}
+{
+  "errors": [{"status", "code", "title", "detail", "source"?}]
+}
 ``` 
 HTTP-статус всегда согласован с содержимым (`201` на создание, `404`/`422`/`500` на ошибки).
 
